@@ -1,14 +1,17 @@
 package miniAventura.backEnd.enums;
 
 public enum ClassWeapon {
-	SWORD_ONE_HANDED(4, 20), BOW_TWO_HANDED(2, 40), AXE_ONE_HANDED(5, 40), FIST(1, 0);
+	SWORD_ONE_HANDED(4, 20, "Espada de una mano"), BOW_TWO_HANDED(2, 40, "Arco de dos manos"), AXE_ONE_HANDED(5, 40, "Hacha una mano"), FIST(1, 0, "Manos desnudas");
 	
 	private int addedDamage;
 	private int price;
+	private String name;
 	
-	ClassWeapon(int valor, int price){
+	ClassWeapon(int valor, int price, String name){
 		setAddedDamage(valor);
 		setPrice(price);
+		setName(name);
+		
 		
 	}
 
@@ -26,6 +29,14 @@ public enum ClassWeapon {
 
 	private void setPrice(int price) {
 		this.price = price;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

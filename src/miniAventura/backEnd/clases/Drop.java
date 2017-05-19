@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import miniAventura.backEnd.excepciones.ItemExistsException;
 import miniAventura.backEnd.excepciones.ItemNoExistsException;
 import miniAventura.backEnd.excepciones.NoNameValidException;
+import miniAventura.backEnd.excepciones.NoObjectToShowException;
 import miniAventura.backEnd.interfaces.Valorable;
 
 public class Drop implements Serializable {
@@ -20,17 +21,20 @@ public class Drop implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public ArrayList<PrincipalObject> allObjects = new ArrayList<PrincipalObject>();
 	public static Inventory inventario = new Inventory();
-//	 public ArrayList<Valorable> valorable = new ArrayList<Valorable>();
+	
 	
 
 	private static final String TOTAL_OBJECTS_OF_GAME = "DataBase of World Objects";
 
 	public void addObject(PrincipalObject objectToAdd) throws ItemExistsException {
-
+		
 		if (!allObjects.contains(objectToAdd))
 			allObjects.add(objectToAdd);
 		else
-			throw new ItemExistsException("Este objeto ya está introducido en el juego. ");
+			if(objectToAdd instanceof Potion)
+				((Potion) objectToAdd).setQuantity(1);
+			else
+				throw new ItemExistsException("Este objeto ya está introducido en el juego. ");
 	}
 
 	public void removeWeapon(String name) throws ItemNoExistsException {
@@ -134,13 +138,41 @@ public class Drop implements Serializable {
 				valorable.add((Valorable) obj);
 			}
 		}
-		Collections.sort(valorable);
-		Collections.reverse(valorable);
+		Collections.sort(valorable, Collections.reverseOrder());
 		
 		
 		return valorable.listIterator();
 		
 	}
+	
+	public ListIterator<PrincipalObject> porClase(PrincipalObject objeto) throws NoObjectToShowException{
+		
+		ArrayList<PrincipalObject> porClase = new ArrayList<PrincipalObject>();
+		
+		if(objeto instanceof Weapon){
+			for(PrincipalObject obj: allObjects)
+				if(obj instanceof Weapon)
+					porClase.add(obj);
+		}
+		else if(objeto instanceof Potion){
+			for(PrincipalObject obj: allObjects)
+				if(obj instanceof Potion)
+					porClase.add(obj);
+		}else if(objeto instanceof KeyObject){
+			for(PrincipalObject obj: allObjects)
+				if(obj instanceof KeyObject)
+					porClase.add(obj);
+		}
+		
+		
+		System.out.println(porClase);
+		if(porClase.isEmpty())
+			throw new NoObjectToShowException("No hay objetos para mostrar");
+		return porClase.listIterator(0);
+		
+	}
+	
+	
 
 
 

@@ -24,8 +24,6 @@ import javax.swing.border.TitledBorder;
 
 import miniAventura.backEnd.clases.Drop;
 import miniAventura.backEnd.clases.FinalObject;
-import miniAventura.backEnd.clases.Gestion;
-import miniAventura.backEnd.clases.Inventory;
 import miniAventura.backEnd.clases.KeyObject;
 import miniAventura.backEnd.clases.Potion;
 import miniAventura.backEnd.clases.PrincipalObject;
@@ -62,68 +60,65 @@ public class Template extends JDialog {
 	/**
 	 * JLabels
 	 */
-	protected JLabel lblPrecioDelObjeto = new JLabel("Precio del Objeto: ");
-	protected JLabel lblSeleccionarObjeto = new JLabel("Seleccionar Objeto: ");
-	protected JLabel lblNombre = new JLabel("Nombre: ");
-	protected JLabel lblTipoDeArma = new JLabel("Tipo de arma: ");
-	protected JLabel lblDescripcinDelObjeto = new JLabel("Descripci\u00F3n del objeto: ");
-	protected final JLabel lblesteObjetoEs = new JLabel(
-			"\u00A1Este objeto es especial y solo debes darle a a\u00F1adir!");
-	protected final JLabel lblTipoDePocion = new JLabel("Tipo de Pocion");
-	protected final JLabel lblTipoDeContenedor = new JLabel("Tipo de contenedor: ");
-	protected final JLabel lblTipoDeCristal = new JLabel("Tipo de cristal: ");
+	JLabel lblPrecioDelObjeto = new JLabel("Precio del Objeto: ");
+	JLabel lblSeleccionarObjeto = new JLabel("Seleccionar Objeto: ");
+	JLabel lblNombre = new JLabel("Nombre: ");
+	JLabel lblTipoDeArma = new JLabel("Tipo de arma: ");
+	JLabel lblDescripcinDelObjeto = new JLabel("Descripci\u00F3n del objeto: ");
+	final JLabel lblesteObjetoEs = new JLabel("\u00A1Este objeto es especial y solo debes darle a a\u00F1adir!");
+	final JLabel lblTipoDePocion = new JLabel("Tipo de Pocion");
+	final JLabel lblTipoDeContenedor = new JLabel("Tipo de contenedor: ");
+	final JLabel lblTipoDeCristal = new JLabel("Tipo de cristal: ");
 
 	/**
 	 * JText utilizados
 	 */
-	protected JTextField name;
-	protected JTextField precio = new JTextField();
-	protected JTextArea description = new JTextArea();
+	JTextField name;
+	JTextField precio = new JTextField();
+	JTextArea description = new JTextArea();
 
 	/**
 	 * Paneles de botones y propios botones
 	 */
-	protected JPanel panel = new JPanel();
-	protected final ButtonGroup buttonGroup = new ButtonGroup();
-	protected JRadioButton wood = new JRadioButton("Wood");
-	protected JRadioButton iron = new JRadioButton("Iron");
-	protected JRadioButton steel = new JRadioButton("Steel");
-	protected JButton search = new JButton("Buscar");
-	protected JButton okButton = new JButton("A\u00F1adir");
-	protected JButton atras = new JButton("<");
-	protected JButton adelante = new JButton(">");
-	protected JButton cancelButton = new JButton("Salir");
-	protected JPanel buttonPane = new JPanel();
+	JPanel panel = new JPanel();
+	final ButtonGroup buttonGroup = new ButtonGroup();
+	JRadioButton wood = new JRadioButton("Wood");
+	JRadioButton iron = new JRadioButton("Iron");
+	JRadioButton steel = new JRadioButton("Steel");
+	JButton search = new JButton("Buscar");
+	JButton okButton = new JButton("A\u00F1adir");
+	JButton atras = new JButton("<");
+	JButton adelante = new JButton(">");
+	JButton cancelButton = new JButton("Salir");
+	JPanel buttonPane = new JPanel();
 
 	/**
 	 * JComboBox usados
 	 */
-	protected final JComboBox<PotionType> potionType = new JComboBox<PotionType>();
-	protected final JComboBox<PotionContainer> potionContainer = new JComboBox<PotionContainer>();
-	protected final JComboBox<Crystal> crystal = new JComboBox<Crystal>();
-	protected JComboBox<Classes> classObject = new JComboBox<Classes>();
-	protected JComboBox<ClassWeapon> classWeapon = new JComboBox<ClassWeapon>();
+	final JComboBox<PotionType> potionType = new JComboBox<PotionType>();
+	final JComboBox<PotionContainer> potionContainer = new JComboBox<PotionContainer>();
+	final JComboBox<Crystal> crystal = new JComboBox<Crystal>();
+	JComboBox<Classes> classObject = new JComboBox<Classes>();
+	JComboBox<ClassWeapon> classWeapon = new JComboBox<ClassWeapon>();
 
 	/**
 	 * Drop envoltorio
 	 */
-	public static Drop dataBase = Gestion.drop;
-	public static Inventory inventario = Drop.inventario;
+	public static Drop dataBase = new Drop();
 
 	/**
 	 * Iteradores
 	 */
-	protected ListIterator<PrincipalObject> rank;
-	protected ListIterator<Valorable> rankIterator;
+	ListIterator<PrincipalObject> rank;
+	ListIterator<Valorable> rankIterator;
 
 	/**
 	 * Intancias de objetos
 	 */
-	protected Weapon weapon;
-	protected Potion potion;
-	protected KeyObject keyObj;
-	protected PrincipalObject object;
-	protected Valorable objeto;
+	Weapon weapon;
+	Potion potion;
+	KeyObject keyObj;
+	PrincipalObject object;
 
 	/**
 	 * Launch the application.
@@ -364,7 +359,7 @@ public class Template extends JDialog {
 		try {
 			KeyObject kObject = new KeyObject(name.getText(), description.getText(),
 					(Crystal) crystal.getSelectedItem());
-			System.out.println(kObject);
+			
 			dataBase.addObject(kObject);
 		} catch (ItemExistsException | NoNameValidException | NoDescriptionValidException e) {
 			JOptionPane.showMessageDialog(contentPanel, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -530,8 +525,7 @@ public class Template extends JDialog {
 	protected PanelImage backGroundImage() {
 		try {
 			BufferedImage image = null;
-			image = ImageIO
-					.read(new File(getClass().getResource("/miniAventura/frontEnd/images/2.jpg").getFile()));
+			image = ImageIO.read(new File(getClass().getResource("/miniAventura/frontEnd/images/2.jpg").getFile()));
 			return new PanelImage(image);
 
 		} catch (IOException e) {
@@ -647,22 +641,43 @@ public class Template extends JDialog {
 
 	}
 
-	protected void actualizarBoton(JButton atras, JButton adelante) {
-		if (!rank.hasPrevious()) {
-			rank.next();
-			atras.setEnabled(false);
-		} else {
+	protected void siguienteObject() {
+		if (rank.hasNext()) {
+			object = rank.next();
+			if (object.getName().equals(name.getText()) && rank.hasNext())
+				object = rank.next();
 
-			atras.setEnabled(true);
+			mostrarDatabase(object);
+
 		}
 
-		if (!rank.hasNext()) {
-			rank.previous();
+		if (!rank.hasNext())
 			adelante.setEnabled(false);
-		} else {
-
+		else
 			adelante.setEnabled(true);
-		}
+		if (!rank.hasPrevious())
+			atras.setEnabled(false);
+		else
+			atras.setEnabled(true);
 
+	}
+
+	protected void anteriorObject(){
+		if (rank.hasPrevious()) {
+			object = rank.previous();
+			if (object.getName().equals(name.getText()) && rank.hasPrevious())
+				object = rank.previous();
+
+			mostrarDatabase(object);
+
+		}
+		if (!rank.hasNext())
+			adelante.setEnabled(false);
+		else
+			adelante.setEnabled(true);
+		if (!rank.hasPrevious())
+			atras.setEnabled(false);
+		else
+			atras.setEnabled(true);
 	}
 }

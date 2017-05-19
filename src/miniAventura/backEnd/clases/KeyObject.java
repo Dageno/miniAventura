@@ -1,12 +1,10 @@
 package miniAventura.backEnd.clases;
 
-import java.io.Serializable;
-
 import miniAventura.backEnd.enums.Crystal;
 import miniAventura.backEnd.excepciones.NoDescriptionValidException;
 import miniAventura.backEnd.excepciones.NoNameValidException;
 
-public class KeyObject extends PrincipalObject implements Serializable{
+public class KeyObject extends PrincipalObject{
 	/**
 	 * 
 	 */

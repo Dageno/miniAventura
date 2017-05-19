@@ -1,25 +1,8 @@
 package miniAventura.frontEnd.gui;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import miniAventura.backEnd.clases.Drop;
-import miniAventura.backEnd.clases.FinalObject;
-import miniAventura.backEnd.clases.KeyObject;
-import miniAventura.backEnd.clases.Potion;
-import miniAventura.backEnd.clases.PrincipalObject;
-import miniAventura.backEnd.clases.Weapon;
-import miniAventura.backEnd.enums.Crystal;
 import miniAventura.backEnd.excepciones.ItemNoExistsException;
-import miniAventura.backEnd.interfaces.Valorable;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class rankingPrice extends MostrarBase {
 
@@ -27,9 +10,8 @@ public class rankingPrice extends MostrarBase {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("unused")
 	private final JPanel contentPanel = new JPanel();
-	private JButton atras = new JButton("<");
-	private JButton adelante = new JButton(">");
 	
 
 	/**
@@ -56,80 +38,33 @@ public class rankingPrice extends MostrarBase {
 		medidas();
 		precio.setVisible(true);
 		lblPrecioDelObjeto.setVisible(true);
-		
-		
+		atras.setVisible(false);
+		adelante.setVisible(false);
+		btnAtrasRanking.setVisible(true);
+		btnAdelanteRanking.setVisible(true);
+		/**
+		 * Inicializar ranking
+		 */
 		rankIterator = dataBase.ranking();
-		
-		
-		
-		/**
-		 * Limpiamos la ventana
-		 */
-		allInvisible();
-		allDisable();
-		
+		objeto = rankIterator.next();
 		
 		/**
-		 * Añadimos el primer elemento
+		 * Comprobamos botones
 		 */
-		mostrarDatabaseRanking(rankIterator.next());
+		if(rankIterator.hasNext())
+			btnAdelanteRanking.setEnabled(true);
+		else
+			btnAdelanteRanking.setEnabled(false);
 		
 		/**
-		 * Actualizamos los botones
+		 * Mostrando objeto 
 		 */
-		actualizarBotonRanking(atras, adelante);
-		
-		
-		/**
-		 * Retrocede en el iterador
-		 */
-		atras.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-					
-					mostrarDatabaseRanking(rankIterator.previous());
-					actualizarBotonRanking(atras, adelante);
-			
-		}});
-		atras.setBounds(437, 337, 89, 23);
-		contentPanel.add(atras);
-		
-		/**
-		 * Avanza en el iterador
-		 */
-		adelante.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				mostrarDatabaseRanking(rankIterator.next());
-				actualizarBotonRanking(atras, adelante);
-				
-			}
-		});
-		contentPanel.add(adelante);
+		mostrarDatabaseRanking(objeto);
+		btnAtrasRanking.setEnabled(false);
 		
 		
 		
 		
 		
 	}
-
-	private void actualizarBotonRanking(JButton atras, JButton adelante) {
-		if (!rankIterator.hasPrevious()) {
-			rankIterator.next();
-			atras.setEnabled(false);
-		} else {
-
-			atras.setEnabled(true);
-		}
-
-		if (!rankIterator.hasNext()) {
-			rankIterator.previous();
-			adelante.setEnabled(false);
-		} else {
-
-			adelante.setEnabled(true);
-		}
-		
-	}
-
-	
 }

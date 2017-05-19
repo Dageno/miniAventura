@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import miniAventura.backEnd.clases.Drop;
 import miniAventura.backEnd.clases.Gestion;
 import miniAventura.backEnd.excepciones.ItemNoExistsException;
 
@@ -113,7 +114,7 @@ public class FrontPanel{
 
 				
 				try {
-					Gestion.nuevo(leerArchivo(), Template.dataBase);
+					Gestion.nuevo(guardarArchivo(), Template.dataBase);
 				} catch (FileNotFoundException e) {
 					JOptionPane.showMessageDialog(frame, "No se encuentra el archivo.", "Error",
 							JOptionPane.ERROR_MESSAGE);
@@ -131,8 +132,8 @@ public class FrontPanel{
 		mntmAbrirBaseDe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					File archivo = leerArchivo();
-					Template.dataBase = Gestion.abrir(archivo, Template.dataBase);
+					
+					Template.dataBase = Gestion.abrir(leerArchivo(), Template.dataBase);
 					
 
 				} catch (ClassNotFoundException e1) {
@@ -164,8 +165,8 @@ public class FrontPanel{
 		mntmGuardarComo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					File archivo = leerArchivo();
-					Gestion.guardarComo(archivo, Template.dataBase);
+					
+					Gestion.guardarComo(guardarArchivo(), Template.dataBase);
 					
 					JOptionPane.showMessageDialog(frame, "Se ha guardado el archivo con éxito.");
 				} catch (FileNotFoundException e1) {
@@ -283,7 +284,7 @@ public class FrontPanel{
 		JMenuItem mntmBorrar = new JMenuItem("Borrar");
 		mntmBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(Template.inventario.isEmpty())
+				if(Drop.inventario.isEmpty())
 					JOptionPane.showMessageDialog(frame, "El inventario esta vacío", "Error",
 							JOptionPane.ERROR_MESSAGE);
 				else{
@@ -304,7 +305,7 @@ public class FrontPanel{
 		JMenuItem mntmMostrarInventario = new JMenuItem("Mostrar inventario");
 		mntmMostrarInventario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(Template.inventario.isEmpty())
+				if(Drop.inventario.isEmpty())
 					JOptionPane.showMessageDialog(frame, "El inventario esta vacío", "Error",
 							JOptionPane.ERROR_MESSAGE);
 				else{
@@ -320,7 +321,7 @@ public class FrontPanel{
 			}
 		});
 		mnInventario.add(mntmMostrarInventario);
-		mnInventario.add(new JSeparator());
+		
 		
 		JMenu mnBaseDeDatos = new JMenu("Base de Datos");
 		menuBar.add(mnBaseDeDatos);
@@ -328,21 +329,52 @@ public class FrontPanel{
 		JMenuItem mntmMostrarBaseDe = new JMenuItem("Mostrar base de datos");
 		mntmMostrarBaseDe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MostrarBase dataBase;
-				try {
-		
-					dataBase = new MostrarBase();
-					dataBase.setModal(true);
-					dataBase.setVisible(true);
-				} catch (ItemNoExistsException e1) {
-					
-					JOptionPane.showMessageDialog(frame, e1.getMessage(), "Error",
+				
+				if(Template.dataBase.isEmpty())
+					JOptionPane.showMessageDialog(frame, "La base de datos está vacía", "Error",
 							JOptionPane.ERROR_MESSAGE);
+				else{
+					MostrarBase dataBase;
+					try {
+			
+						dataBase = new MostrarBase();
+						dataBase.setModal(true);
+						dataBase.setVisible(true);
+					} catch (ItemNoExistsException e1) {
+						
+						JOptionPane.showMessageDialog(frame, e1.getMessage(), "Error",
+								JOptionPane.ERROR_MESSAGE);
+					}
 				}
+				
 				
 			}
 		});
 		mnBaseDeDatos.add(mntmMostrarBaseDe);
+		
+		JMenuItem mntmMostrarPorClase = new JMenuItem("Mostrar por Clase");
+		mntmMostrarPorClase.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(Template.dataBase.isEmpty())
+					JOptionPane.showMessageDialog(frame, "La base de datos está vacía", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				else{
+					MostrarPorClase mostrarClase;
+					try {
+			
+						mostrarClase = new MostrarPorClase();
+						mostrarClase.setModal(true);
+						mostrarClase.setVisible(true);
+					} catch (ItemNoExistsException e1) {
+						
+						JOptionPane.showMessageDialog(frame, e1.getMessage(), "Error",
+								JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			}
+		});
+		mnBaseDeDatos.add(mntmMostrarPorClase);
 		
 //		JMenuItem mntmMostrarLogs = new JMenuItem("Mostrar logs");
 //		mnBaseDeDatos.add(mntmMostrarLogs);
@@ -376,8 +408,8 @@ public class FrontPanel{
 	
 	public static File leerArchivo() {
 
-		int returnVal = fileChooser.showOpenDialog(null);
-		if (returnVal != JFileChooser.CANCEL_OPTION) {
+		
+		if (fileChooser.showOpenDialog(null) != JFileChooser.CANCEL_OPTION) {
 			return fileChooser.getSelectedFile();
 
 		} else {
@@ -385,5 +417,15 @@ public class FrontPanel{
 			return null;
 		}
 	}
+	
+	public static File guardarArchivo() {
 
+		if (fileChooser.showSaveDialog(null) != JFileChooser.CANCEL_OPTION) {
+			return fileChooser.getSelectedFile();
+
+		} else {
+
+			return null;
+		}
+	}
 }

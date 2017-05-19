@@ -14,7 +14,7 @@ import miniAventura.frontEnd.gui.FrontPanel;
 public class Gestion {
 	public static File archivo;
 	static boolean modificado;
-	public static Drop drop = new Drop();
+
 	
 	public static JFileChooser fileChooser;
 	/**
@@ -32,13 +32,13 @@ public class Gestion {
 
 	}
 	
-	public static void nuevo(File archivo, Drop concesionario) throws FileNotFoundException, IOException {
+	public static void nuevo(File archivo, Drop drop) throws FileNotFoundException, IOException {
 		if (Gestion.modificado) {
 			if (deseaGuardar("Se han hecho modificaciones, Desea guardar los cambios ? (y/n)")) {
-				Fichero.escribir(archivo, concesionario);
+				Fichero.escribir(archivo, drop);
 			}
 		}
-		concesionario.clearDrop();
+		drop.clearDrop();
 		archivo = null;
 		setModificado(false);
 	}
@@ -51,17 +51,17 @@ public class Gestion {
 		return false;
 	}
 
-	public static Drop abrir(File archivo, Drop concesionario) throws FileNotFoundException, ClassNotFoundException, IOException{
-		return Fichero.leer(archivo, concesionario);
+	public static Drop abrir(File archivo, Drop drop) throws FileNotFoundException, ClassNotFoundException, IOException{
+		return Fichero.leer(archivo, drop);
 	}
 
-	public static void guardar(Drop concesionario) throws FileNotFoundException, IOException {
+	public static void guardar(Drop drop) throws FileNotFoundException, IOException {
 		if(getFile()==null){
-			File archivo = FrontPanel.leerArchivo();
-			guardarComo(archivo, concesionario);
+			
+			guardarComo(FrontPanel.guardarArchivo(), drop);
 		}
 		else
-			Fichero.guardar(getFile(), concesionario);
+			Fichero.guardar(getFile(), drop);
 		
 		
 	}
@@ -77,8 +77,8 @@ public class Gestion {
 		return archivo;
 	}
 
-	public static void guardarComo(File archivo, Drop concesionario) throws FileNotFoundException, IOException {
-		Fichero.escribir(archivo, concesionario);
+	public static void guardarComo(File archivo, Drop drop) throws FileNotFoundException, IOException {
+		Fichero.escribir(archivo, drop);
 		
 	}
 

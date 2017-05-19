@@ -1,14 +1,12 @@
 package miniAventura.backEnd.clases;
 
-import java.io.Serializable;
-
 import miniAventura.backEnd.enums.PotionContainer;
 import miniAventura.backEnd.enums.PotionType;
 import miniAventura.backEnd.excepciones.NoDescriptionValidException;
 import miniAventura.backEnd.excepciones.NoNameValidException;
 import miniAventura.backEnd.interfaces.Valorable;
 
-public class Potion extends PrincipalObject implements Valorable, Serializable {
+public class Potion extends PrincipalObject implements Valorable{
 	
 	/**
 	 * 
@@ -29,7 +27,7 @@ public class Potion extends PrincipalObject implements Valorable, Serializable {
 		return quantity;
 	}
 	public void setQuantity(int quantity) {
-		this.quantity = quantity;
+		this.quantity += quantity;
 	}
 	
 	public Potion(String name, String description, PotionType potion, PotionContainer container) throws NoNameValidException, NoDescriptionValidException {

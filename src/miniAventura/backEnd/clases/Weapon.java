@@ -1,14 +1,12 @@
 package miniAventura.backEnd.clases;
 
-import java.io.Serializable;
-
 import miniAventura.backEnd.enums.ClassWeapon;
 import miniAventura.backEnd.enums.Material;
 import miniAventura.backEnd.excepciones.NoDescriptionValidException;
 import miniAventura.backEnd.excepciones.NoNameValidException;
 import miniAventura.backEnd.interfaces.Valorable;
 
-public class Weapon extends PrincipalObject implements Valorable, Serializable{
+public class Weapon extends PrincipalObject implements Valorable{
 	
 	/**
 	 * 

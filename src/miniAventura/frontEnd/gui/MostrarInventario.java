@@ -1,20 +1,16 @@
 package miniAventura.frontEnd.gui;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
+import miniAventura.backEnd.clases.Drop;
 import miniAventura.backEnd.clases.KeyObject;
 import miniAventura.backEnd.clases.Potion;
 import miniAventura.backEnd.clases.Weapon;
-import miniAventura.backEnd.excepciones.ItemExistsException;
 import miniAventura.backEnd.excepciones.ItemNoExistsException;
 
 public class MostrarInventario extends MostrarBase {
@@ -49,8 +45,8 @@ public class MostrarInventario extends MostrarBase {
 		medidas();
 		
 		
-		rank = inventario.allObjects.listIterator();
-		object = inventario.get(0);
+		rank = Drop.inventario.allObjects.listIterator();
+		
 		
 		/**
 		 * Limpiamos la ventana
@@ -61,23 +57,20 @@ public class MostrarInventario extends MostrarBase {
 		/**
 		 * Añadimos el primer elemento
 		 */
-		mostrarDatabase(object);
+		siguienteObject();
+		atras.setEnabled(false);
 		
-		/**
-		 * Actualizamos los botones
-		 */
-		actualizarBoton(atras, adelante);
 		
 		borrar.setBounds(337, 66, 113, 23);
 		borrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if(object instanceof Weapon)
-						inventario.removeWeapon(object.getName());
+						Drop.inventario.removeWeapon(object.getName());
 					else if (object instanceof Potion)
-						inventario.removePotion(object.getName());
+						Drop.inventario.removePotion(object.getName());
 					else if(object instanceof KeyObject)
-						inventario.removeKeyObject(object.getName());
+						Drop.inventario.removeKeyObject(object.getName());
 					
 					comprobarBase();
 				} catch (ItemNoExistsException e1) {
@@ -87,16 +80,14 @@ public class MostrarInventario extends MostrarBase {
 			}
 
 			private void comprobarBase() {
-				if(inventario.isEmpty()){
+				if(Drop.inventario.isEmpty()){
 					JOptionPane.showMessageDialog(contentPanel, "El inventario está vacío", "Error",
 							JOptionPane.ERROR_MESSAGE);
 					dispose();
 				}else{
 					try {
-						rank = inventario.allObjects.listIterator();
-						object = inventario.get(0);
-						mostrarDatabase(object);
-						actualizarBoton(atras, adelante);
+						rank = Drop.inventario.allObjects.listIterator();
+						siguienteObject();
 					} catch (Exception  e) {
 						
 					}
