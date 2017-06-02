@@ -45,7 +45,7 @@ public class Ayuda extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
-			JLabel lblConcesionario = new JLabel("Concesionario:");
+			JLabel lblConcesionario = new JLabel("Butcher of Vlabiken:");
 			lblConcesionario.setFont(new Font("Tahoma", Font.BOLD, 12));
 			lblConcesionario.setBounds(10, 50, 108, 14);
 			contentPanel.add(lblConcesionario);

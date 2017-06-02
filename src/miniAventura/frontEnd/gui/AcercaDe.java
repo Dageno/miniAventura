@@ -44,7 +44,7 @@ public class AcercaDe extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
-			JLabel lblConcesionarioRealizadoEn = new JLabel("Concesionario realizado en el curso 1\u00BA de DAW");
+			JLabel lblConcesionarioRealizadoEn = new JLabel("Creador de contenido de BoV realizado en el curso 1\u00BA de DAW");
 			lblConcesionarioRealizadoEn.setFont(new Font("Tahoma", Font.BOLD, 11));
 			lblConcesionarioRealizadoEn.setBounds(26, 11, 264, 14);
 			contentPanel.add(lblConcesionarioRealizadoEn);
