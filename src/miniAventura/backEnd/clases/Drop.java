@@ -138,6 +138,7 @@ public class Drop implements Serializable {
 				valorable.add((Valorable) obj);
 			}
 		}
+		
 		Collections.sort(valorable, Collections.reverseOrder());
 		
 		
@@ -163,9 +164,7 @@ public class Drop implements Serializable {
 				if(obj instanceof KeyObject)
 					porClase.add(obj);
 		}
-		
-		
-		System.out.println(porClase);
+	
 		if(porClase.isEmpty())
 			throw new NoObjectToShowException("No hay objetos para mostrar");
 		return porClase.listIterator(0);

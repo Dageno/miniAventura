@@ -18,5 +18,14 @@ public enum Classes {
 	String getName(){
 		return name;
 	}
+	
+	public static String[] getOpciones(){
+		int i = 0;
+		String[] opciones = new String[Classes.values().length];
+		for(Classes elemento : Classes.values())
+			opciones[i++]= elemento.getName();
+		return opciones;
+		
+	}
 
 }

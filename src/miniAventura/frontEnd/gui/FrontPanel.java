@@ -24,6 +24,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import miniAventura.backEnd.clases.Drop;
 import miniAventura.backEnd.clases.Gestion;
 import miniAventura.backEnd.excepciones.ItemNoExistsException;
+import javax.swing.KeyStroke;
+import java.awt.event.KeyEvent;
+import java.awt.event.InputEvent;
 
 
 public class FrontPanel{
@@ -106,9 +109,12 @@ public class FrontPanel{
 		frame.setJMenuBar(menuBar);
 
 		JMenu mnArchivo = new JMenu("Archivo");
+		mnArchivo.setMnemonic('a');
 		menuBar.add(mnArchivo);
 		
 		JMenuItem mntmNuevo = new JMenuItem("Nuevo");
+		mntmNuevo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
+		mntmNuevo.setMnemonic('n');
 		mntmNuevo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -129,6 +135,7 @@ public class FrontPanel{
 		mnArchivo.add(mntmNuevo);
 		
 		JMenuItem mntmAbrirBaseDe = new JMenuItem("Abrir Base de Datos");
+		mntmAbrirBaseDe.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_MASK));
 		mntmAbrirBaseDe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -148,6 +155,7 @@ public class FrontPanel{
 		mnArchivo.add(mntmAbrirBaseDe);
 		
 		JMenuItem mntmGuardar = new JMenuItem("Guardar");
+		mntmGuardar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G, InputEvent.CTRL_MASK));
 		mntmGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -190,9 +198,11 @@ public class FrontPanel{
 		 mnArchivo.add(mntmSalir);
 		
 		JMenu mnAdministracin = new JMenu("Administraci\u00F3n");
+		mnAdministracin.setMnemonic('d');
 		menuBar.add(mnAdministracin);
 		
 		JMenuItem mntmAadirObjeto = new JMenuItem("A\u00F1adir objeto");
+		mntmAadirObjeto.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.ALT_MASK));
 		mntmAadirObjeto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				UpBase up = new UpBase();
@@ -203,6 +213,7 @@ public class FrontPanel{
 		mnAdministracin.add(mntmAadirObjeto);
 		
 		JMenuItem mntmEliminarObjeto = new JMenuItem("Eliminar objeto");
+		mntmEliminarObjeto.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.ALT_MASK));
 		mntmEliminarObjeto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(Template.dataBase.isEmpty())
@@ -219,6 +230,7 @@ public class FrontPanel{
 		mnAdministracin.add(mntmEliminarObjeto);
 		
 		JMenuItem mntmBuscarObjeto = new JMenuItem("Buscar Objeto");
+		mntmBuscarObjeto.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.ALT_MASK));
 		mntmBuscarObjeto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(Template.dataBase.isEmpty())
@@ -235,6 +247,7 @@ public class FrontPanel{
 		mnAdministracin.add(new JSeparator());
 		
 		JMenuItem mntmRankingPorPrecio = new JMenuItem("Ranking por precio");
+		mntmRankingPorPrecio.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.ALT_MASK));
 		mntmRankingPorPrecio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(Template.dataBase.isEmpty())
@@ -246,8 +259,8 @@ public class FrontPanel{
 						ranking = new rankingPrice();
 						ranking.setModal(true);
 						ranking.setVisible(true);
-					} catch (ItemNoExistsException e1) {
-						JOptionPane.showMessageDialog(frame, e1.getMessage(), "Error",
+					} catch (Exception e1) {
+						JOptionPane.showMessageDialog(frame, "No hay objetos para hacer ranking", "Error",
 								JOptionPane.ERROR_MESSAGE);
 					}
 					
@@ -257,9 +270,11 @@ public class FrontPanel{
 		mnAdministracin.add(mntmRankingPorPrecio);
 		
 		JMenu mnInventario = new JMenu("Inventario");
+		mnInventario.setMnemonic('i');
 		menuBar.add(mnInventario);
 		
 		JMenuItem mntmAadir = new JMenuItem("A\u00F1adir");
+		mntmAadir.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.SHIFT_MASK));
 		mntmAadir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(Template.dataBase.isEmpty())
@@ -282,6 +297,7 @@ public class FrontPanel{
 		mnInventario.add(mntmAadir);
 		
 		JMenuItem mntmBorrar = new JMenuItem("Borrar");
+		mntmBorrar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.SHIFT_MASK));
 		mntmBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(Drop.inventario.isEmpty())
@@ -303,6 +319,7 @@ public class FrontPanel{
 		mnInventario.add(mntmBorrar);
 		
 		JMenuItem mntmMostrarInventario = new JMenuItem("Mostrar inventario");
+		mntmMostrarInventario.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.SHIFT_MASK));
 		mntmMostrarInventario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(Drop.inventario.isEmpty())
@@ -324,9 +341,11 @@ public class FrontPanel{
 		
 		
 		JMenu mnBaseDeDatos = new JMenu("Base de Datos");
+		mnBaseDeDatos.setMnemonic('b');
 		menuBar.add(mnBaseDeDatos);
 		
 		JMenuItem mntmMostrarBaseDe = new JMenuItem("Mostrar base de datos");
+		mntmMostrarBaseDe.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, InputEvent.ALT_GRAPH_MASK));
 		mntmMostrarBaseDe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -353,6 +372,7 @@ public class FrontPanel{
 		mnBaseDeDatos.add(mntmMostrarBaseDe);
 		
 		JMenuItem mntmMostrarPorClase = new JMenuItem("Mostrar por Clase");
+		mntmMostrarPorClase.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.ALT_GRAPH_MASK));
 		mntmMostrarPorClase.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -380,9 +400,11 @@ public class FrontPanel{
 //		mnBaseDeDatos.add(mntmMostrarLogs);
 		
 		JMenu mnAyuda = new JMenu("Ayuda");
+		mnAyuda.setMnemonic('u');
 		menuBar.add(mnAyuda);
 		
 		JMenuItem mntmManualDeUso = new JMenuItem("Manual de uso");
+		mntmManualDeUso.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
 		mntmManualDeUso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 					Ayuda ayuda = Ayuda.getSingleton();
@@ -394,6 +416,7 @@ public class FrontPanel{
 		mnAyuda.add(mntmManualDeUso);
 		
 		JMenuItem mntmAcercaDe = new JMenuItem("Acerca de...");
+		mntmAcercaDe.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
 		mntmAcercaDe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AcercaDe acercaDe = new AcercaDe();

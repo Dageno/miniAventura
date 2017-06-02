@@ -79,6 +79,7 @@ public class DownBase extends Template {
 		contentPanel.add(potionContainer);
 		contentPanel.add(crystal);
 		classObject.removeItem(Classes.FINAL_OBJECT);
+		classObject.setEnabled(false);
 		classWeapon.setSelectedItem(null);
 		classWeapon.setEnabled(false);
 		potionType.setEnabled(false);
@@ -98,8 +99,8 @@ public class DownBase extends Template {
 		contentPanel.add(panel);
 		
 		
-		
-		
+		allInvisible();
+		name.setVisible(true);
 		search.setVisible(true);
 		
 		
@@ -117,14 +118,14 @@ public class DownBase extends Template {
 						if (object != null) {
 							try {	
 								switch (classObject.getSelectedItem().toString()) {
-								case "WEAPON":
-									dataBase.removeWeapon(weapon.getName());
+								case "Armas":
+									dataBase.removeWeapon(object.getName());
 									break;
-								case "POTION":
-									dataBase.removePotion(potion.getName());
+								case "Pociones":
+									dataBase.removePotion(object.getName());
 									break;
-								case "KEY_OBJECT":
-									dataBase.removeKeyObject(keyObj.getName());
+								case "Objetos Clave":
+									dataBase.removeKeyObject(object.getName());
 									break;
 								}
 								Gestion.setModificado(true);

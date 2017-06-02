@@ -38,5 +38,14 @@ public enum ClassWeapon {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public static String[] getOpciones(){
+		int i = 0;
+		String[] opciones = new String[ClassWeapon.values().length];
+		for(ClassWeapon elemento : ClassWeapon.values())
+			opciones[i++]= elemento.getName();
+		return opciones;
+		
+	}
 
 }

@@ -95,15 +95,15 @@ public class UpBase extends Template {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						switch (classObject.getSelectedItem().toString()) {
-						case "WEAPON":
+						case "Armas":
 							forgeWeapon();
 							cleanFieldsAdd();
 							break;
-						case "POTION":
+						case "Pociones":
 							makePotion();
 							cleanFieldsAdd();
 							break;
-						case "KEY_OBJECT":
+						case "Objetos Clave":
 							makeKeyObject();
 							break;
 						default:

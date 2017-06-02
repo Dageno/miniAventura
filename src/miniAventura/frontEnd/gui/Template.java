@@ -82,9 +82,9 @@ public class Template extends JDialog {
 	 */
 	JPanel panel = new JPanel();
 	final ButtonGroup buttonGroup = new ButtonGroup();
-	JRadioButton wood = new JRadioButton("Wood");
-	JRadioButton iron = new JRadioButton("Iron");
-	JRadioButton steel = new JRadioButton("Steel");
+	JRadioButton wood = new JRadioButton("Madera");
+	JRadioButton iron = new JRadioButton("Hierro");
+	JRadioButton steel = new JRadioButton("Acero");
 	JButton search = new JButton("Buscar");
 	JButton okButton = new JButton("A\u00F1adir");
 	JButton atras = new JButton("<");
@@ -98,8 +98,8 @@ public class Template extends JDialog {
 	final JComboBox<PotionType> potionType = new JComboBox<PotionType>();
 	final JComboBox<PotionContainer> potionContainer = new JComboBox<PotionContainer>();
 	final JComboBox<Crystal> crystal = new JComboBox<Crystal>();
-	JComboBox<Classes> classObject = new JComboBox<Classes>();
-	JComboBox<ClassWeapon> classWeapon = new JComboBox<ClassWeapon>();
+	JComboBox<String> classObject = new JComboBox<String>();
+	JComboBox<String> classWeapon = new JComboBox<String>();
 
 	/**
 	 * Drop envoltorio
@@ -171,13 +171,13 @@ public class Template extends JDialog {
 				allInvisible();
 				cleanFieldsAdd();
 				switch (classObject.getSelectedItem().toString()) {
-				case "WEAPON":
+				case "Armas":
 					menuWeapon();
 					break;
-				case "POTION":
+				case "Pociones":
 					menuPotion();
 					break;
-				case "KEY_OBJECT":
+				case "Objetos Clave":
 					menuKeyObject();
 					break;
 				default:
@@ -186,7 +186,7 @@ public class Template extends JDialog {
 				}
 			}
 		});
-		classObject.setModel(new DefaultComboBoxModel<Classes>(Classes.values()));
+		classObject.setModel(new DefaultComboBoxModel<String>(Classes.getOpciones()));
 		classObject.setBounds(306, 17, 122, 20);
 
 		lblNombre.setForeground(Color.WHITE);
@@ -194,7 +194,7 @@ public class Template extends JDialog {
 		lblNombre.setBounds(145, 70, 75, 14);
 
 		name = new JTextField();
-		name.setBounds(214, 67, 113, 20);
+		name.setBounds(214, 67, 140, 20);
 		name.setColumns(10);
 
 		lblTipoDeArma.setForeground(Color.WHITE);
@@ -203,21 +203,22 @@ public class Template extends JDialog {
 
 		classWeapon.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
-				if (classWeapon.getSelectedItem() == ClassWeapon.FIST) {
+				if (classWeapon.getSelectedItem() == "Manos desnudas") {
 					allInvisible();
 					classWeapon.setVisible(true);
 					lblTipoDeArma.setVisible(true);
-					name.setText("Manos desnudas");
+					
 
 				} else {
 					menuWeapon();
+
 				}
 			}
 		});
-		classWeapon.setModel(new DefaultComboBoxModel<ClassWeapon>(ClassWeapon.values()));
+		classWeapon.setModel(new DefaultComboBoxModel<String>(ClassWeapon.getOpciones()));
 
-		classWeapon.setBounds(194, 132, 130, 20);
-
+		classWeapon.setBounds(194, 132, 150, 20);
+		classWeapon.setVisible(true);
 		lblDescripcinDelObjeto.setForeground(Color.WHITE);
 		lblDescripcinDelObjeto.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
 		lblDescripcinDelObjeto.setBounds(149, 237, 210, 14);
@@ -226,7 +227,7 @@ public class Template extends JDialog {
 
 		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Material del objeto",
 				TitledBorder.CENTER, TitledBorder.TOP, null, Color.WHITE));
-		panel.setBounds(73, 180, 306, 46);
+		panel.setBounds(73, 180, 312, 46);
 		panel.setForeground(new Color(255, 255, 255));
 		panel.setOpaque(false);
 		wood.setOpaque(false);
@@ -252,7 +253,7 @@ public class Template extends JDialog {
 		buttonGroup.add(steel);
 		;
 
-		search.setBounds(337, 66, 113, 23);
+		search.setBounds(360, 66, 113, 23);
 
 		/**
 		 * Busca el objeto segun su clase y su nombre
@@ -262,26 +263,27 @@ public class Template extends JDialog {
 
 				try {
 					switch (classObject.getSelectedItem().toString()) {
-					case "WEAPON":
-						weapon = (Weapon) dataBase.getWeapon(name.getText());
-						searchObject(weapon);
+					case "Armas":
 						object = dataBase.getWeapon(name.getText());
+						searchObject((Weapon)object);
+						
 						break;
-					case "POTION":
-						potion = (Potion) dataBase.getPotion(name.getText());
-						searchObject(potion);
+					case "Pociones":
 						object = dataBase.getPotion(name.getText());
+						searchObject((Potion) object);
+						
 						break;
-					case "KEY_OBJECT":
+					case "Objetos Clave":
 
-						keyObj = (KeyObject) dataBase.getKeyObject(name.getText());
-						searchObject(keyObj);
 						object = dataBase.getKeyObject(name.getText());
+						searchObject((KeyObject) object);
+						
 						break;
 					}
 
 				} catch (ItemNoExistsException e1) {
 					JOptionPane.showMessageDialog(contentPanel, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+					cleanFieldsAdd();
 				}
 
 			}
@@ -388,8 +390,12 @@ public class Template extends JDialog {
 	protected void forgeWeapon() {
 
 		try {
-			Weapon weapon = new Weapon(name.getText(), description.getText(),
-					(ClassWeapon) classWeapon.getSelectedItem(), getMaterial());
+			if(getClassWeapon() == ClassWeapon.FIST)
+				weapon = new Weapon("Manos desnudas", "Manos desnudas",
+						getClassWeapon(), getMaterial());
+			else
+				weapon = new Weapon(name.getText(), description.getText(),
+						getClassWeapon(), getMaterial());
 			dataBase.addObject(weapon);
 		} catch (ItemExistsException | NoNameValidException | NoMaterialSelectedException e) {
 			JOptionPane.showMessageDialog(contentPanel, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -397,6 +403,19 @@ public class Template extends JDialog {
 			JOptionPane.showMessageDialog(contentPanel, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
 
+	}
+
+	private ClassWeapon getClassWeapon() {
+		switch (classWeapon.getSelectedItem().toString()) {
+		case "Espada de una mano":
+			return ClassWeapon.SWORD_ONE_HANDED;
+		case "Arco de dos manos":
+			return ClassWeapon.BOW_TWO_HANDED;
+		case "Hacha de una mano":
+			return ClassWeapon.AXE_ONE_HANDED;
+		default:
+			return ClassWeapon.FIST;
+		}
 	}
 
 	/**
@@ -538,6 +557,7 @@ public class Template extends JDialog {
 		name.setText("");
 		buttonGroup.clearSelection();
 		description.setText("");
+		
 
 	}
 
@@ -545,7 +565,7 @@ public class Template extends JDialog {
 		name.setText(weapon.getName());
 		seleccionarMaterial(weapon.getMaterial());
 		description.setText(weapon.getDescription());
-		classWeapon.setSelectedItem(weapon.getClassWeapon());
+		classWeapon.setSelectedItem(weapon.getClassWeapon().getName());
 		precio.setText(Integer.toString(weapon.getPrice()));
 
 	}

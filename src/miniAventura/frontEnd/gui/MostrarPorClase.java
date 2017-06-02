@@ -63,6 +63,8 @@ public class MostrarPorClase extends MostrarBase {
 			btnAtras.setEnabled(false);
 		} catch (NoObjectToShowException | NoNameValidException e1) {
 			allInvisible();
+			btnAdelante.setEnabled(false);
+			btnAtras.setEnabled(false);
 		}
 	
 		

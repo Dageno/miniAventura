@@ -1,7 +1,6 @@
 package miniAventura.frontEnd.gui;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -17,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import miniAventura.backEnd.clases.Drop;
+import miniAventura.backEnd.clases.FinalObject;
 import miniAventura.backEnd.clases.KeyObject;
 import miniAventura.backEnd.clases.Potion;
 import miniAventura.backEnd.clases.PrincipalObject;
@@ -47,7 +47,7 @@ public class MostrarBase extends Template {
 	/**
 	 * JComboBox de tipos de objeto.
 	 */
-	JComboBox<Classes> cajaPorClase = new JComboBox<Classes>();
+	JComboBox<String> cajaPorClase = new JComboBox<String>();
 	
 	/**
 	 * Iterador PorClase
@@ -273,17 +273,20 @@ public class MostrarBase extends Template {
 
 					switch (cajaPorClase.getSelectedItem().toString()) {
 
-					case "WEAPON":
+					case "Armas":
 
 						iteratorClase = dataBase.porClase(new Weapon("Aux"));
 						break;
-					case "POTION":
+					case "Pociones":
 						iteratorClase = dataBase.porClase(new Potion("Aux"));
 						break;
-					default:
+					case "Objetos Clave":
 						iteratorClase = dataBase.porClase(new KeyObject("Aux"));
-
 						break;
+					default:
+						iteratorClase = dataBase.porClase(new FinalObject("Aux"));
+						break;
+						
 					}
 					mostrarDatabase(iteratorClase.next());
 					if (iteratorClase.hasNext())
@@ -305,7 +308,7 @@ public class MostrarBase extends Template {
 			}
 
 		});
-		cajaPorClase.setModel(new DefaultComboBoxModel<Classes>(Classes.values()));
+		cajaPorClase.setModel(new DefaultComboBoxModel<String>(Classes.getOpciones()));
 
 	}
 
@@ -363,7 +366,7 @@ public class MostrarBase extends Template {
 	
 	///// FUNCIONALIDAD RANKING /////
 	/**
-	 * 
+	 * Funcionalidad de boton adelante de ranking
 	 */
 	private void siguienteObjetoRanking() {
 		if (rankIterator.hasNext()) {
@@ -386,7 +389,7 @@ public class MostrarBase extends Template {
 		
 	}
 	/**
-	 * 
+	 * Funcionalidad de boton atras de ranking
 	 */
 	protected void anteriorObjetoRanking(){
 		if (rankIterator.hasPrevious()) {

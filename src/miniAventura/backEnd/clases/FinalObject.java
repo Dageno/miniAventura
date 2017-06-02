@@ -10,6 +10,10 @@ public class FinalObject extends KeyObject{
 		super("The Yellow Crystal of Salvation", "A powerfull crystal that can tear apart any nearly evil thing", Crystal.YELLOW);
 	}
 
+	public FinalObject(String string) throws NoNameValidException {
+		super(string);
+	}
+
 	@Override
 	public String toString() {
 		return super.toString();
