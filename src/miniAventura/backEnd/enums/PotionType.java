@@ -1,7 +1,9 @@
 package miniAventura.backEnd.enums;
-
-import miniAventura.backEnd.clases.Potion;
-
+/**
+ * Enumeración de los tipos de pociones que existen
+ * @author d16genod
+ *
+ */
 public enum PotionType {
 	HEALTH(30, 10), MANA(30, 10), STRENGTH(10, 50), MAGICIAN(20, 50);
 	

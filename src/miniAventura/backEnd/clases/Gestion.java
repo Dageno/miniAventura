@@ -8,14 +8,10 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import miniAventura.frontEnd.gui.FrontPanel;
-
-
 public class Gestion {
 	public static File archivo;
 	static boolean modificado;
 
-	
 	public static JFileChooser fileChooser;
 	/**
 	 * Bloque estático para iniciar el filechooser
@@ -25,69 +21,85 @@ public class Gestion {
 		FileNameExtensionFilter extension = new FileNameExtensionFilter("Base de datos Butcher", "db");
 		fileChooser.setFileFilter(extension);
 	}
-	
-	
+
 	public static void setModificado(boolean modify) {
 		modificado = modify;
 
 	}
-	
-	public static void nuevo(File archivo, Drop drop) throws FileNotFoundException, IOException {
+
+	public static void nuevo(Drop drop) throws FileNotFoundException, IOException {
 		if (Gestion.modificado) {
 			if (deseaGuardar("Se han hecho modificaciones, Desea guardar los cambios ? (y/n)")) {
-				Fichero.escribir(archivo, drop);
+				Fichero.escribir(guardarArchivo(), drop);
 			}
 		}
 		drop.clearDrop();
 		archivo = null;
 		setModificado(false);
+
 	}
+
 	public static boolean deseaGuardar(String string) {
-		int confirmado = JOptionPane.showConfirmDialog(
-				   null,
-				   string);
-		if(JOptionPane.OK_OPTION == confirmado)
+		int confirmado = JOptionPane.showConfirmDialog(null, string);
+		if (JOptionPane.OK_OPTION == confirmado)
 			return true;
 		return false;
 	}
 
-	public static Drop abrir(File archivo, Drop drop) throws FileNotFoundException, ClassNotFoundException, IOException{
-		return Fichero.leer(archivo, drop);
+	public static Drop abrir(Drop drop) throws FileNotFoundException, ClassNotFoundException, IOException {
+		return Fichero.leer(leerArchivo(), drop);
 	}
 
 	public static void guardar(Drop drop) throws FileNotFoundException, IOException {
-		if(getFile()==null){
-			
-			guardarComo(FrontPanel.guardarArchivo(), drop);
-		}
-		else
+		if (getFile() == null) {
+
+			guardarComo(drop);
+		} else
 			Fichero.guardar(getFile(), drop);
-		
-		
+
 	}
-	public static File ficheroNuevo(){
-		
-		return new File(JOptionPane.showInputDialog(
-				   null,
-				   "Nombre del fichero:"));
-		
+
+	public static File ficheroNuevo() {
+
+		return new File(JOptionPane.showInputDialog(null, "Nombre del fichero:"));
+
 	}
+
 	public static File getFile() {
-		
+
 		return archivo;
 	}
 
-	public static void guardarComo(File archivo, Drop drop) throws FileNotFoundException, IOException {
-		Fichero.escribir(archivo, drop);
-		
+	public static void guardarComo(Drop drop) throws FileNotFoundException, IOException {
+		Fichero.escribir(guardarArchivo(), drop);
+
 	}
 
 	public static boolean getModificado() {
-		
+
 		return modificado;
 	}
-	
-	
-	
+
+	public static File guardarArchivo() {
+
+		if (fileChooser.showSaveDialog(null) != JFileChooser.CANCEL_OPTION) {
+			return fileChooser.getSelectedFile();
+
+		} else {
+
+			return null;
+		}
+	}
+
+	public static File leerArchivo() {
+
+		if (fileChooser.showOpenDialog(null) != JFileChooser.CANCEL_OPTION) {
+			return fileChooser.getSelectedFile();
+
+		} else {
+
+			return null;
+		}
+	}
 
 }

@@ -1,19 +1,12 @@
 package miniAventura.frontEnd.gui;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Insets;
 import java.awt.image.BufferedImage;
 
-import javax.swing.ImageIcon;
 import javax.swing.border.Border;
 
 public class PanelImage implements Border {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
 	BufferedImage backImage = null;
 
 	public PanelImage(BufferedImage bImage) {

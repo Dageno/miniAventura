@@ -12,7 +12,11 @@ import miniAventura.backEnd.excepciones.ItemNoExistsException;
 import miniAventura.backEnd.excepciones.NoNameValidException;
 import miniAventura.backEnd.excepciones.NoObjectToShowException;
 import miniAventura.backEnd.interfaces.Valorable;
-
+/**
+ * Clase que guarda todos los objetos disponibles para el juego
+ * @author d16genod
+ *
+ */
 public class Drop implements Serializable {
 
 	/**
@@ -25,7 +29,11 @@ public class Drop implements Serializable {
 	
 
 	private static final String TOTAL_OBJECTS_OF_GAME = "DataBase of World Objects";
-
+	/**
+	 * Añade objetos al arraylist
+	 * @param objectToAdd
+	 * @throws ItemExistsException
+	 */
 	public void addObject(PrincipalObject objectToAdd) throws ItemExistsException {
 		
 		if (!allObjects.contains(objectToAdd))
@@ -36,7 +44,11 @@ public class Drop implements Serializable {
 			else
 				throw new ItemExistsException("Este objeto ya está introducido en el juego. ");
 	}
-
+	/**
+	 * Borra armas del arraylist
+	 * @param name
+	 * @throws ItemNoExistsException
+	 */
 	public void removeWeapon(String name) throws ItemNoExistsException {
 
 		try {
@@ -46,7 +58,11 @@ public class Drop implements Serializable {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-	
+	/**
+	 * Borra pociones del arrayList
+	 * @param name
+	 * @throws ItemNoExistsException
+	 */
 	public void removePotion(String name) throws ItemNoExistsException {
 		try {
 			if (!allObjects.remove(new Potion(name)))
@@ -57,7 +73,11 @@ public class Drop implements Serializable {
 		
 	}
 	
-
+	/**
+	 * Borra objetos clave del arrayList
+	 * @param name
+	 * @throws ItemNoExistsException
+	 */
 	public void removeKeyObject(String name) throws ItemNoExistsException {
 		try {
 			if (!allObjects.remove(new KeyObject(name)))
@@ -71,7 +91,13 @@ public class Drop implements Serializable {
 	public int size() {
 		return allObjects.size();
 	}
-
+	
+	/**
+	 * Obtiene un arma que pertenece al arraylist
+	 * @param string
+	 * @return
+	 * @throws ItemNoExistsException
+	 */
 	public Weapon getWeapon(String string) throws ItemNoExistsException {
 
 		try {
@@ -81,6 +107,13 @@ public class Drop implements Serializable {
 		}
 
 	}
+	/**
+	 * 
+	 * Obtiene una pocion que pertenece al arraylist
+	 * @param string
+	 * @return
+	 * @throws ItemNoExistsException
+	 */
 	public Potion getPotion(String string) throws ItemNoExistsException {
 
 		try {
@@ -90,7 +123,12 @@ public class Drop implements Serializable {
 		}
 
 	}
-	
+	/**
+	 * Obtiene un objeto clave que pertenece al arraylist
+	 * @param text
+	 * @return
+	 * @throws ItemNoExistsException
+	 */
 	public KeyObject getKeyObject(String text) throws ItemNoExistsException {
 		try {
 			return (KeyObject) allObjects.get(allObjects.indexOf(new KeyObject(text)));
@@ -98,7 +136,12 @@ public class Drop implements Serializable {
 			throw new ItemNoExistsException("Error al buscar. Este objeto no está incluido en el juego. ");
 		}
 	}
-
+	/**
+	 * Devuelve objeto padre si se encuentra en el arraylist
+	 * @param index
+	 * @return
+	 * @throws ItemNoExistsException
+	 */
 	public PrincipalObject get(int index) throws ItemNoExistsException {
 
 		try {
@@ -108,7 +151,7 @@ public class Drop implements Serializable {
 		}
 
 	}
-
+	
 	public void modificar(PrincipalObject modify) {
 
 		allObjects.set(allObjects.indexOf(modify.getIdentify()), modify);
@@ -119,7 +162,9 @@ public class Drop implements Serializable {
 
 		return allObjects.isEmpty();
 	}
-
+	/**
+	 * Limpia el arraylist
+	 */
 	public void clearDrop() {
 		allObjects.clear();
 		
@@ -130,7 +175,10 @@ public class Drop implements Serializable {
 		return "Drop list:  " + TOTAL_OBJECTS_OF_GAME + "[" + allObjects + "]\n";
 
 	}
-	
+	/**
+	 * Ranking de objetos por precio
+	 * @return
+	 */
 	public ListIterator<Valorable> ranking(){
 		ArrayList<Valorable> valorable = new ArrayList<Valorable>();
 		for(PrincipalObject obj: allObjects){
@@ -145,7 +193,12 @@ public class Drop implements Serializable {
 		return valorable.listIterator();
 		
 	}
-	
+	/**
+	 * Divide el arraylist por clase de objeto
+	 * @param objeto
+	 * @return
+	 * @throws NoObjectToShowException
+	 */
 	public ListIterator<PrincipalObject> porClase(PrincipalObject objeto) throws NoObjectToShowException{
 		
 		ArrayList<PrincipalObject> porClase = new ArrayList<PrincipalObject>();

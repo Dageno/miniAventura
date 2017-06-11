@@ -12,9 +12,21 @@ public class Potion extends PrincipalObject implements Valorable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Tipo de la pocion
+	 */
 	protected PotionType potion;
+	/**
+	 * Contenedor de la pocion
+	 */
 	protected PotionContainer container;
+	/**
+	 * Precio final de la pocion
+	 */
 	private Integer price;
+	/**
+	 * Cantidad
+	 */
 	private int quantity = 0;
 	
 	public Integer getPrice() {

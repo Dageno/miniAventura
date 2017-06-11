@@ -3,7 +3,12 @@ package miniAventura.backEnd.clases;
 import java.time.LocalDate;
 
 import miniAventura.backEnd.enums.Magic;
-
+/**
+ * Clase del jugador EN DESARROLLO
+ * @author d16genod
+ *
+ */
+/////// EN DESARROLLO ///////
 public class Character {
 
 	private String name;

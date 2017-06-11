@@ -10,7 +10,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+/**
+ * Guarda en un fichero los las ultimas acciones del usuario. En desarrollo.
+ * @author d16genod
+ *
+ */
 
+///////// EN DESARROLLO /////////
 public class FileLog {
 	 
 	static File checkExtend(File file) {

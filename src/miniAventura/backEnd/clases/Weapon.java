@@ -12,10 +12,25 @@ public class Weapon extends PrincipalObject implements Valorable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Daño final que realiza el arma
+	 */
 	private int damage;
+	/**
+	 * Durabilidad del arma
+	 */
 	private int durability;
+	/**
+	 * Clase de arma
+	 */
 	ClassWeapon classWeapon;
+	/**
+	 * Material del que esta compuesto
+	 */
 	Material material;
+	/**
+	 * precio final
+	 */
 	private Integer price;
 
 	public int getDamage() {

@@ -1,5 +1,11 @@
 package miniAventura.backEnd.enums;
+/**
+ * Magias del Jugador a desarrollar.
+ * @author d16genod
+ *
+ */
 
+////// EN DESARROLLO /////
 public enum Magic {
 	FIRE(10), LIGHTNING(10), ICE(10);
 	

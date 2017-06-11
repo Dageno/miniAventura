@@ -1,7 +1,7 @@
 package miniAventura.frontEnd.gui;
 
-import javax.swing.JDialog;
 import javax.swing.JPanel;
+
 import miniAventura.backEnd.excepciones.ItemNoExistsException;
 
 public class rankingPrice extends MostrarBase {
@@ -12,20 +12,6 @@ public class rankingPrice extends MostrarBase {
 	private static final long serialVersionUID = 1L;
 	@SuppressWarnings("unused")
 	private final JPanel contentPanel = new JPanel();
-	
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			rankingPrice dialog = new rankingPrice();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * Create the dialog.
@@ -36,6 +22,7 @@ public class rankingPrice extends MostrarBase {
 		
 		setTitle("Ranking por precios");
 		medidas();
+		
 		precio.setVisible(true);
 		lblPrecioDelObjeto.setVisible(true);
 		atras.setVisible(false);

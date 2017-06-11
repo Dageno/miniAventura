@@ -78,7 +78,7 @@ public class FrontPanel{
 					if (Gestion.deseaGuardar("Se han hecho modificaciones, Desea guardar los cambios ? (y/n)")) {
 						if (Gestion.getFile() == null)
 							try {
-								Gestion.guardarComo(fileChooser.getSelectedFile(), Template.dataBase);
+								Gestion.guardarComo(Template.dataBase);
 							} catch (IOException e1) {
 								JOptionPane.showMessageDialog(frame, "Se ha producido un error al guardar el archivo.",
 										"Error", JOptionPane.ERROR_MESSAGE);
@@ -120,7 +120,7 @@ public class FrontPanel{
 
 				
 				try {
-					Gestion.nuevo(guardarArchivo(), Template.dataBase);
+					Gestion.nuevo(Template.dataBase);
 				} catch (FileNotFoundException e) {
 					JOptionPane.showMessageDialog(frame, "No se encuentra el archivo.", "Error",
 							JOptionPane.ERROR_MESSAGE);
@@ -140,7 +140,7 @@ public class FrontPanel{
 			public void actionPerformed(ActionEvent e) {
 				try {
 					
-					Template.dataBase = Gestion.abrir(leerArchivo(), Template.dataBase);
+					Template.dataBase = Gestion.abrir(Template.dataBase);
 					
 
 				} catch (ClassNotFoundException e1) {
@@ -174,7 +174,7 @@ public class FrontPanel{
 			public void actionPerformed(ActionEvent e) {
 				try {
 					
-					Gestion.guardarComo(guardarArchivo(), Template.dataBase);
+					Gestion.guardarComo(Template.dataBase);
 					
 					JOptionPane.showMessageDialog(frame, "Se ha guardado el archivo con éxito.");
 				} catch (FileNotFoundException e1) {
@@ -429,26 +429,5 @@ public class FrontPanel{
 		
 	}
 	
-	public static File leerArchivo() {
-
-		
-		if (fileChooser.showOpenDialog(null) != JFileChooser.CANCEL_OPTION) {
-			return fileChooser.getSelectedFile();
-
-		} else {
-
-			return null;
-		}
-	}
 	
-	public static File guardarArchivo() {
-
-		if (fileChooser.showSaveDialog(null) != JFileChooser.CANCEL_OPTION) {
-			return fileChooser.getSelectedFile();
-
-		} else {
-
-			return null;
-		}
-	}
 }

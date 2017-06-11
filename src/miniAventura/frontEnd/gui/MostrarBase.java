@@ -135,6 +135,10 @@ public class MostrarBase extends Template {
 		borrar.setVisible(false);
 		btnAdelante.setVisible(false);
 		btnAtras.setVisible(false);
+		btnAdelante.setEnabled(false);
+		btnAdelanteRanking.setVisible(false);
+		btnAtrasRanking.setVisible(false);
+		btnAtras.setEnabled(false);
 		contentPanel.add(panel);
 		contentPanel.add(annadir);
 		contentPanel.add(borrar);
@@ -224,7 +228,7 @@ public class MostrarBase extends Template {
 		contentPanel.add(btnAtrasRanking);
 		
 		/**
-		 * Avanza en el iterador
+		 * Avanza en el iterador RANKITERATOR
 		 */
 		btnAdelanteRanking.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

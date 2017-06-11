@@ -4,8 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-
-
+/**
+ * Caja de texto informativa de los sucesos EN DESARROLLO
+ * @author d16genod
+ *
+ */
+///////// EN DESARROLLO /////////
 public class Chatlog {
 
 	ArrayList<String> chatlog =new ArrayList<String>();

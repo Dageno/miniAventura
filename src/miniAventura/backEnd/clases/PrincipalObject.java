@@ -27,7 +27,8 @@ public class PrincipalObject implements Serializable  {
 	private String name;
 	private String description;
 	private LocalDate creationDate;
-	Pattern pattern = Pattern.compile("^[A-Z].*");
+	Pattern patternName = Pattern.compile("^[A-Z].*");
+	Pattern patternDescription = Pattern.compile("\\w+");
 	
 	public int getIdentify() {
 		return identify;
@@ -40,7 +41,7 @@ public class PrincipalObject implements Serializable  {
 		return name;
 	}
 	private void setName(String name) throws NoNameValidException {
-		Matcher mat = pattern.matcher(name);
+		Matcher mat = patternName.matcher(name);
 		if(!mat.matches())
 			throw new NoNameValidException("El nombre no es válido");
 		this.name = name;
@@ -49,9 +50,9 @@ public class PrincipalObject implements Serializable  {
 		return description;
 	}
 	private void setDescription(String description) throws NoDescriptionValidException {
-		Matcher mat = pattern.matcher(description);
-		if(!mat.matches())
-			throw new NoDescriptionValidException("Debe introducir algo en la descripción.");
+//		Matcher mat = patternDescription.matcher(description);
+//		if(!mat.matches())
+//			throw new NoDescriptionValidException("La descripcion no es válida");
 		this.description = description;
 	}
 	

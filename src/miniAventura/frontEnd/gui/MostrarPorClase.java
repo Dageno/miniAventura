@@ -1,6 +1,5 @@
 package miniAventura.frontEnd.gui;
 
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 import miniAventura.backEnd.clases.Weapon;
@@ -16,22 +15,6 @@ public class MostrarPorClase extends MostrarBase {
 	private static final long serialVersionUID = 1L;
 	@SuppressWarnings("unused")
 	private final JPanel contentPanel = new JPanel();
-	
-
-	
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			MostrarPorClase dialog = new MostrarPorClase();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * Create the dialog.

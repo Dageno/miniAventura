@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import javax.swing.JOptionPane;
+
 public class Fichero {
 	static File comprobarExtend(File archivo) {
 		String path = archivo.getPath();
@@ -32,12 +34,13 @@ public class Fichero {
 	public static Drop leer(File archivo, Drop drop) throws IOException, ClassNotFoundException{
 		archivo = comprobarExtend(archivo);
 		if(Gestion.modificado)
-			Gestion.nuevo(archivo, drop);
+			Gestion.nuevo(drop);
 		try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(archivo)))) {
 			return (Drop) ois.readObject();
 
 		}catch(FileNotFoundException e){
-			System.err.println("El fichero introducido no existe.");
+			JOptionPane.showMessageDialog(null, "El fichero elegido no es correcto.", "Error",
+					JOptionPane.ERROR_MESSAGE);
 		}
 		return drop;
 		

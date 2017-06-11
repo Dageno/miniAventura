@@ -69,7 +69,6 @@ public class Template extends JDialog {
 	final JLabel lblTipoDePocion = new JLabel("Tipo de Pocion");
 	final JLabel lblTipoDeContenedor = new JLabel("Tipo de contenedor: ");
 	final JLabel lblTipoDeCristal = new JLabel("Tipo de cristal: ");
-
 	/**
 	 * JText utilizados
 	 */
@@ -119,20 +118,6 @@ public class Template extends JDialog {
 	Potion potion;
 	KeyObject keyObj;
 	PrincipalObject object;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			Template dialog = new Template();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	/**
 	 * Create the dialog.
 	 */
@@ -142,7 +127,6 @@ public class Template extends JDialog {
 		getContentPane().setLayout(new BorderLayout());
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-
 		contentPanel.setBorder(backGroundImage());
 		{
 
@@ -151,12 +135,12 @@ public class Template extends JDialog {
 			lblSeleccionarObjeto.setBounds(180, 20, 130, 14);
 			contentPanel.add(lblSeleccionarObjeto);
 		}
-
+		setResizable(false);
 		lblPrecioDelObjeto.setForeground(Color.WHITE);
 		lblPrecioDelObjeto.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		lblPrecioDelObjeto.setBounds(180, 20, 143, 14);
 		contentPanel.add(lblPrecioDelObjeto);
-
+		
 		precio.setBounds(304, 17, 121, 20);
 		contentPanel.add(precio);
 		precio.setColumns(10);
@@ -273,12 +257,6 @@ public class Template extends JDialog {
 						searchObject((Potion) object);
 						
 						break;
-					case "Objetos Clave":
-
-						object = dataBase.getKeyObject(name.getText());
-						searchObject((KeyObject) object);
-						
-						break;
 					}
 
 				} catch (ItemNoExistsException e1) {
@@ -355,15 +333,17 @@ public class Template extends JDialog {
 
 	/**
 	 * Crea objetos clave del juego
+	 * @throws NoDescriptionValidException 
 	 */
 
 	protected void makeKeyObject() {
 		try {
+			
 			KeyObject kObject = new KeyObject(name.getText(), description.getText(),
 					(Crystal) crystal.getSelectedItem());
 			
 			dataBase.addObject(kObject);
-		} catch (ItemExistsException | NoNameValidException | NoDescriptionValidException e) {
+		} catch (ItemExistsException | NoNameValidException | NoDescriptionValidException  e) {
 			JOptionPane.showMessageDialog(contentPanel, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
 
@@ -378,6 +358,7 @@ public class Template extends JDialog {
 			Potion potion = new Potion(name.getText(), description.getText(), (PotionType) potionType.getSelectedItem(),
 					(PotionContainer) potionContainer.getSelectedItem());
 			dataBase.addObject(potion);
+			cleanFieldsAdd();
 		} catch (ItemExistsException | NoNameValidException | NoDescriptionValidException e) {
 			JOptionPane.showMessageDialog(contentPanel, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
@@ -397,6 +378,7 @@ public class Template extends JDialog {
 				weapon = new Weapon(name.getText(), description.getText(),
 						getClassWeapon(), getMaterial());
 			dataBase.addObject(weapon);
+			cleanFieldsAdd();
 		} catch (ItemExistsException | NoNameValidException | NoMaterialSelectedException e) {
 			JOptionPane.showMessageDialog(contentPanel, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		} catch (NoDescriptionValidException e) {
@@ -456,7 +438,7 @@ public class Template extends JDialog {
 
 	private void actualizarKeyObject() {
 
-		description.setText(
+		description.setText("Un "+
 				getCrystal() + " tremendamente poderoso \n en conjunto a otros cristales, pero solo... \n No es nada.");
 		name.setText(getCrystal() + " de poder.");
 
@@ -464,7 +446,7 @@ public class Template extends JDialog {
 
 	private void actualizarKeyObject(KeyObject keyObj) {
 
-		description.setText(
+		description.setText("Un "+
 				getCrystal() + " tremendamente poderoso \n en conjunto a otros cristales, pero solo... \n No es nada.");
 		name.setText(getCrystal() + " de poder.");
 		crystal.setSelectedItem(keyObj.getCrystal());
@@ -591,9 +573,8 @@ public class Template extends JDialog {
 
 		crystal.setModel(new DefaultComboBoxModel<Crystal>(Crystal.values()));
 		crystal.setSelectedIndex(3);
-		description.setText(
-				getCrystal() + " tremendamente poderoso \n en conjunto a otros cristales, pero solo... \n No es nada.");
-		name.setText(getCrystal() + " de poder.");
+		description.setText(keyObj2.getDescription());
+		name.setText(keyObj2.getName());
 
 	}
 

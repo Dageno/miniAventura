@@ -3,7 +3,11 @@ package miniAventura.backEnd.clases;
 import miniAventura.backEnd.enums.Crystal;
 import miniAventura.backEnd.excepciones.NoDescriptionValidException;
 import miniAventura.backEnd.excepciones.NoNameValidException;
-
+/**
+ * Clase de objetos clave del juego.
+ * @author d16genod
+ *
+ */
 public class KeyObject extends PrincipalObject{
 	/**
 	 * 
