@@ -253,7 +253,7 @@ public class MostrarBase extends Template {
 		/**
 		 * Boton clase hija añadirInventario
 		 */
-		annadir.setBounds(337, 66, 113, 23);
+		annadir.setBounds(365, 66, 113, 23);
 		annadir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {

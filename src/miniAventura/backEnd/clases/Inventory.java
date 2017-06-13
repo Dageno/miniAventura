@@ -34,6 +34,12 @@ public class Inventory extends Drop {
 		return TOTAL_OBJECTS_OF_GAME + " list: [" + allObjects + "]\n";
 
 	}
+
+
+	public void remove(PrincipalObject principalObject) {
+		allObjects.remove(principalObject);
+		
+	}
 	
 
 

@@ -27,6 +27,7 @@ public class MostrarPorClase extends MostrarBase {
 		
 		
 		cajaPorClase.setVisible(true);
+		cajaPorClase.removeItem("Objeto Final");
 		lblPrecioDelObjeto.setVisible(false);
 		precio.setVisible(false);
 		lblSeleccionarObjeto.setVisible(true);

@@ -18,7 +18,7 @@ public class Gestion {
 	 */
 	static {
 		fileChooser = new JFileChooser();
-		FileNameExtensionFilter extension = new FileNameExtensionFilter("Base de datos Butcher", "db");
+		FileNameExtensionFilter extension = new FileNameExtensionFilter("Base de Datos Butcher", "db");
 		fileChooser.setFileFilter(extension);
 	}
 

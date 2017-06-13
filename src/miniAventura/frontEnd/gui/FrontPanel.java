@@ -32,15 +32,6 @@ import java.awt.event.InputEvent;
 public class FrontPanel{
 
 	JFrame frame;
-	public static JFileChooser fileChooser;
-	/**
-	 * Bloque estático para iniciar el filechooser
-	 */
-	static {
-		fileChooser = new JFileChooser();
-		FileNameExtensionFilter extension = new FileNameExtensionFilter("Base de Datos Butcher", "db");
-		fileChooser.setFileFilter(extension);
-	}
 	/**
 	 * Launch the application.
 	 */
@@ -147,7 +138,7 @@ public class FrontPanel{
 					JOptionPane.showMessageDialog(frame,
 							"El fichero no contiene ningún concesionario.", "Error", JOptionPane.ERROR_MESSAGE);
 				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(frame, "Acceso cancelado por el usuario.", "Error",
+					JOptionPane.showMessageDialog(frame, e1.getMessage(), "Error",
 							JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -300,7 +291,7 @@ public class FrontPanel{
 		mntmBorrar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.SHIFT_MASK));
 		mntmBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(Drop.inventario.isEmpty())
+				if(Drop.inventario.allObjects.isEmpty())
 					JOptionPane.showMessageDialog(frame, "El inventario esta vacío", "Error",
 							JOptionPane.ERROR_MESSAGE);
 				else{
@@ -322,7 +313,7 @@ public class FrontPanel{
 		mntmMostrarInventario.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.SHIFT_MASK));
 		mntmMostrarInventario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(Drop.inventario.isEmpty())
+				if(Drop.inventario.allObjects.isEmpty())
 					JOptionPane.showMessageDialog(frame, "El inventario esta vacío", "Error",
 							JOptionPane.ERROR_MESSAGE);
 				else{
@@ -395,7 +386,7 @@ public class FrontPanel{
 			}
 		});
 		mnBaseDeDatos.add(mntmMostrarPorClase);
-		
+		// EN DESARROLLO //
 //		JMenuItem mntmMostrarLogs = new JMenuItem("Mostrar logs");
 //		mnBaseDeDatos.add(mntmMostrarLogs);
 		

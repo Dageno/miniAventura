@@ -9,8 +9,10 @@ import javax.swing.JPanel;
 import miniAventura.backEnd.clases.Drop;
 import miniAventura.backEnd.clases.KeyObject;
 import miniAventura.backEnd.clases.Potion;
+import miniAventura.backEnd.clases.PrincipalObject;
 import miniAventura.backEnd.clases.Weapon;
 import miniAventura.backEnd.excepciones.ItemNoExistsException;
+import miniAventura.backEnd.excepciones.NoNameValidException;
 
 public class MostrarInventario extends MostrarBase {
 
@@ -42,26 +44,17 @@ public class MostrarInventario extends MostrarBase {
 		/**
 		 * Añadimos el primer elemento
 		 */
-		siguienteObject();
+		mostrarDatabase(rank.next());
 		atras.setEnabled(false);
 		
 		
-		borrar.setBounds(337, 66, 113, 23);
+		borrar.setBounds(365, 66, 113, 23);
 		borrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					if(object instanceof Weapon)
-						Drop.inventario.removeWeapon(object.getName());
-					else if (object instanceof Potion)
-						Drop.inventario.removePotion(object.getName());
-					else if(object instanceof KeyObject)
-						Drop.inventario.removeKeyObject(object.getName());
-					
-					comprobarBase();
-				} catch (ItemNoExistsException e1) {
-					JOptionPane.showMessageDialog(contentPanel, e1.getMessage(), "Error",
-							JOptionPane.ERROR_MESSAGE);
-				}
+				
+				Drop.inventario.remove(object);
+				
+				comprobarBase();
 			}
 
 			private void comprobarBase() {
